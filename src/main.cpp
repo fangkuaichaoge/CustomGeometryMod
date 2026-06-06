@@ -109,9 +109,9 @@ static bool PatchLeavesGeometryId() {
     }
     
     // 替换为自定义几何标识符
-    // "minecraft:geometry.leaves" (23字节) 
-    // -> "minecraft:geometry.custom_cross" (31字节)
-    const char* newId = CUSTOM_GEOMETRY_ID;
+    // 由于我们的几何模型ID已经是 "minecraft:geometry.leaves"，
+    // 这里实际上不需要替换，几何数据会直接覆盖
+    const char* newId = TARGET_GEOMETRY_ID;
     size_t newLen = strlen(newId);
     
     // 确保有足够空间
