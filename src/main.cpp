@@ -149,16 +149,8 @@ static bool InjectGeometryData() {
     typedef void (*GeometryParseFunc)(const char*, size_t);
     GeometryParseFunc parse = reinterpret_cast<GeometryParseFunc>(parseFunc);
     
-    __asm__ volatile(
-        "mov x0, %[json]\n"
-        "mov x1, %[len]\n"
-        "bl %[func]\n"
-        :
-        : [json] "r"(jsonBuffer),
-          [len] "r"(jsonLen),
-          [func] "r"(parse)
-        : "x0", "x1", "lr"
-    );
+    // 使用 C 语言调用，避免内联汇编的 ARM64 限制
+    parse(jsonBuffer, jsonLen);
     
     delete[] jsonBuffer;
     return true;
